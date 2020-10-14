@@ -48,69 +48,53 @@ $(document).ready(function () {
   localStorage.setItem("info", JSON.stringify(info));
   localStorage.setItem("today", JSON.stringify(today));
 
-  //adds to class id of current hour "present"
-
-  //gets current hour in military format
-  curhour = moment().format("HH:mm");
-  //adds to class id of current hour "present"
-  $("#" + curhour).addClass("present");
-  //loop to change future time slots to present
-  for (let i = 9; i < 17; i++) {
-    if (curhour < i) {
-      $("#" + i).addClass("future");
-    } else if (curhour > i) {
-      $("#" + i).addClass("past");
-    }
-  }
-
   //end of loop
 
   // defining the time of days for the planner.
   var hours = {
     amHours: ["9:00", "10:00", "11:00"],
     pmHours: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
+    hour: [9, 10, 11, 12, 13, 14, 15, 16, 17],
   };
-  // converting military time to standard time in localstorage
-  console.log(
-    "Check in local Storage to see the conversion when clicked on save! "
-  );
-  // defining the time of day to color in the planner.
-  var colorChange = {
-    amColorHours: ["9am", "10am", "11am"],
-    pmColorHours: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm"],
+  // defining the conversions.
+  var conversion = {
+    amHour: ["9am", "10am", "11am"],
+    pmHour: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm"],
   };
+
+
   // storing data into local storage
-  localStorage.setItem("hours", JSON.stringify(hours));
+  localStorage.setItem("hours", JSON.stringify(conversion));
 
   // loop to display the 9am - 11am
   for (var i = 0; i < hours.amHours.length; i++) {
-    var newDivClassRow = $("<div class='row'></div>");
+    var newDivClassRow = $("<div class='row block'></div>");
     $(".container").append(newDivClassRow);
     var hourCol = $(`<div class="col-2 time-block">${hours.amHours[i]}</div>`);
 
     var textCol = $(
-      `<textarea class="col description" placeholder='Enter your events here' data-store=${colorChange.amColorHours[i]}></textarea>`
+      `<input class="col description" placeholder='Enter your events here' data-store=${conversion.amHour[i]}></></input>`
     );
     var buttonCol = $(
-      `<button class="saveBtn" data-store=${colorChange.amColorHours[i]}>Save</button>`
+      `<button class="saveBtn styled" data-store=${hours.amHours[i]}><i class="fas fa-save"></i></button>`
     );
     $(newDivClassRow).append(hourCol, textCol, buttonCol);
   }
   // loop to display the 12pm - 5pm
   for (var i = 0; i < hours.pmHours.length; i++) {
-    var newDivClassRow = $("<div class='row'></div>");
+    var newDivClassRow = $("<div class='row block'></div>");
     $(".container").append(newDivClassRow);
     var hourCol = $(`<div class='col-2 time-block'>${hours.pmHours[i]}</div>`);
 
     var textCol = $(
-      `<textarea class="col description" placeholder='Enter your events here' data-store=${colorChange.pmColorHours[i]}></textarea>`
+      `<input class="col textCol description" placeholder='Enter your events here' data-store=${conversion.pmHour[i]}></input>`
     );
     var buttonCol = $(
-      `<button class="saveBtn" data-store=${colorChange.pmColorHours[i]}>Save</button>`
+      `<button class="saveBtn styled" data-store=${hours.pmHours[i]}><i class="fas fa-save"></i></button>`
     );
     $(newDivClassRow).append(hourCol, textCol, buttonCol);
   }
-  
+  // storing data to local storage
   $("[data-store]").each(function () {
     $(this).val(localStorage.getItem($(this).attr("data-store")));
   });
@@ -118,4 +102,47 @@ $(document).ready(function () {
   $("[data-store]").on("keyup", function (itm) {
     localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
   });
+
+// time function
+function time() {
+
+  // variable "currentHour" holds current hour.
+  var currentHour = moment().hours();
+
+  // function for each class block to past, present, or future
+  $(".row").each(function () {
+
+      // variable "hour" holds data-store hour from class block and pareInt is used to change it from a string to an integer.
+      var hour = parseInt($(this).attr("hours.hour"));
+
+      // if in the past hour's
+      if (hour < currentHour) {
+          // adds grey to blocks
+          $(this).addClass("past");
+      }
+
+      //else if in the present hour
+      else if (hour === currentHour) {
+          // removes grey to blocks
+          $(this).removeClass("past");
+          // adds red to blocks
+          $(this).addClass("present");
+      }
+
+      // else if in the future's
+      else {
+          // removes grey to blocks
+          $(this).removeClass("past");
+          // removes red to blocks
+          $(this).removeClass("present");
+          // adds green to blocks
+          $(this).addClass("future");
+      }
+
+  });
+
+};
+
+// call the funtion time()
+time();
 });

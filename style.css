@@ -5,9 +5,9 @@ body {
   background-color: rgba(36, 39, 39, 0.26);
 }
 
-textarea{
+input{
   background: transparent;
-  background-color: #e2e2e2;
+
   border: none;
   resize: none;
   color: #000000;
@@ -64,7 +64,7 @@ textarea{
 }
 
 .saveBtn {
-  border-left: 2px solid black;
+  border-left: 1px solid black;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   background-color: rgb(73, 73, 73);
@@ -89,4 +89,34 @@ textarea{
 .alert {
   background-color: rgb(73, 73, 73);
   border-radius: 0;
+}
+
+.styled {
+  border-left: 1px solid black;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-color: rgb(58, 56, 56);
+  background-image: linear-gradient(to top left,
+                                    rgba(0, 0, 0, .2),
+                                    rgba(0, 0, 0, .2) 30%,
+                                    rgba(0, 0, 0, 0));
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+              inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+.styled:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.styled:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
