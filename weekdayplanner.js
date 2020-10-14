@@ -48,14 +48,6 @@ $(document).ready(function () {
   localStorage.setItem("info", JSON.stringify(info));
   localStorage.setItem("today", JSON.stringify(today));
 
-  $("[data-store]").each(function () {
-    $(this).val(localStorage.getItem($(this).attr("data-store")));
-  });
-  // storing data into local storage
-  $("[data-store]").on("keyup", function (itm) {
-    localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
-  });
-
   //adds to class id of current hour "present"
 
   //gets current hour in military format
@@ -118,12 +110,12 @@ $(document).ready(function () {
     );
     $(newDivClassRow).append(hourCol, textCol, buttonCol);
   }
-
-  $(".saveBtn").each(function () {
+  
+  $("[data-store]").each(function () {
     $(this).val(localStorage.getItem($(this).attr("data-store")));
   });
   // storing data into local storage
-  $(".saveBtn").on("click", function (itm) {
+  $("[data-store]").on("keyup", function (itm) {
     localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
   });
 });
