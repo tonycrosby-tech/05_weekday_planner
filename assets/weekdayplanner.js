@@ -76,10 +76,10 @@ $(document).ready(function () {
     var hourCol = $(`<div class="col-2 time-block">${hours.amHours[i]}:00</div>`);
 
     var textCol = $(
-      `<textarea class="col description" placeholder='Enter your events here' data-store=${conversion.amHour[i]}></></textarea>`
+      `<textarea class="col description" placeholder='Enter your events here' id=${conversion.amHour[i]}></></textarea>`
     );
     var buttonCol = $(
-      `<button class="saveBtn styled" data-store=${hours.amHours[i]}><i class="fas fa-save"></i></button>`
+      `<button class="saveBtn styled" id=${hours.amHours[i]}><i class="fas fa-save"></i></button>`
     );
     $(newDivClassRow).append(hourCol, textCol, buttonCol);
   }
@@ -91,26 +91,26 @@ $(document).ready(function () {
     var hourCol = $(`<div class='col-2 time-block'>${hours.pmHours[i]}:00</div>`);
 
     var textCol = $(
-      `<textarea class="col description" placeholder='Enter your events here' data-store=${conversion.pmHour[i]}></textarea>`
+      `<textarea class="col description" placeholder='Enter your events here' id=${conversion.pmHour[i]}></textarea>`
     );
     var buttonCol = $(
-      `<button class="saveBtn styled" data-store=${hours.pmHours[i]}><i class="fas fa-save"></i></button>`
+      `<button class="saveBtn styled" id=${hours.pmHours[i]}><i class="fas fa-save"></i></button>`
     );
     $(newDivClassRow).append(hourCol, textCol, buttonCol);
   }
   // storing data to local storage
-  $("[data-store]").each(function () {
-    $(this).val(localStorage.getItem($(this).attr("data-store")));
+  $("[id]").each(function () {
+    $(this).val(localStorage.getItem($(this).attr("id")));
   });
   // storing data into local storage
-  $("[data-store]").on("keyup", function (itm) {
-    localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
+  $("[id]").on("keyup", function (itm) {
+    localStorage.setItem($(this).attr("id"), $(this).val().trim());
   });
 
   function colorChange() {
     $('textarea').each(function () {
         var currentHour = parseInt(moment().hours());
-        var textData = $('textarea').data(hourColors);
+        var textData = $('textarea').data("id");
         if (textData < currentHour) {
             $('textarea').removeClass("present");
             $('textarea').removeClass("future");
