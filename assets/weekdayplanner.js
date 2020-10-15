@@ -109,25 +109,18 @@ $(document).ready(function () {
 
   function colorChange() {
     $('textarea').each(function () {
-        var currentHour = parseInt(moment().hours());
-        var textData = $('textarea').data("id");
-        if (textData < currentHour) {
-            $('textarea').removeClass("present");
-            $('textarea').removeClass("future");
-            $('textarea').addClass("past");
+        var currentHour = moment().format("HH");
+        // var textData = $('textarea').data("id");
+        $("#" + currentHour).addClass("present");
+        for (let i = 7; i < 18; i++) {
+          if (currentHour < i) {
+            $("#" + i).addClass("future");
+          } else if (currentHour > i) {
+            $("#" + i).addClass("past");
+          }
         }
-        else if (textData === currentHour) {
-            $('textarea').removeClass("past");
-            $('textarea').removeClass("future");
-            $('textarea').addClass("present");
-        }
-        else {
-            $('textarea').removeClass("past");
-            $('textarea').removeClass("present");
-            $('textarea').addClass("future");
-        }
-        console.log(textData);
-        console.log(currentHour);
+        // console.log(textData);
+        // console.log(currentHour);
     });
 };
 colorChange();
