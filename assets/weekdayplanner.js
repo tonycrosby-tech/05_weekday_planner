@@ -89,7 +89,6 @@ $(document).ready(function () {
       );
       $(newDivClassRow).append(hourCol, textCol, buttonCol);
     }
-  
 };
 dayAndTime();
   
@@ -111,13 +110,39 @@ dayAndTime();
 };
 colorChange();
 
-  function saveInput(){
-    var saveBtn = $('.saveBtn');
-    saveBtn.on('click', function(){
-        let eventId = $(this).attr('id');
-        let eventText = $(this).siblings('.description').val();
-        localStorage.setItem(eventId, eventText);
-    });
-  }
-saveInput();
+
+// $('#save').on('click', function(){
+
+//   $('input[type="text"]').each(function(){    
+//       var id = $(this).attr('id');
+//       var value = $(this).val();
+//      localStorage.setItem(id, value);
+
+//   });   
+// });
+
+// $('#load').on('click', function(){
+//   $('input[type="text"]').each(function(){    
+//       var id = $(this).attr('id');
+//       var value = localStorage.getItem(id);
+
+//       $(this).val(value);
+
+//   }); 
+// });
+
+// var saveBtn = $('.saveBtn');
+// saveBtn.on('click', function(){
+//   var eventId = $(this).attr('id');
+//   var eventText = $(this).siblings('.description').val();
+//   localStorage.setItem(eventId, eventText);
+//   });
+
+$('.saveBtn').on('click', function(){
+    var eventId = $(this).attr('id');
+    var eventText = $(this).siblings('.description').val();
+    localStorage.setItem(eventId, eventText);
+});
+
+  
 });
