@@ -51,16 +51,19 @@ $(document).ready(function () {
   //end of loop
 
   // defining the time of days for the planner.
+  
   var hours = {
-    amHours: ["9:00", "10:00", "11:00"],
-    pmHours: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00"],
+    amHours: [9, 10, 11],
+    pmHours: [12, 13, 14, 15, 16, 17],
     hour: [9, 10, 11, 12, 13, 14, 15, 16, 17],
   };
   // defining the conversions.
   var conversion = {
-    amHour: ["9am", "10am", "11am"],
-    pmHour: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm"],
+    amHour: [9, 10, 11],
+    pmHour: [12, 13, 14, 15, 16, 17],
   };
+
+  var hourColors = [9, 10, 11, 12, 13, 14, 15, 16, 17]
 
 
   // storing data into local storage
@@ -70,10 +73,10 @@ $(document).ready(function () {
   for (var i = 0; i < hours.amHours.length; i++) {
     var newDivClassRow = $("<div class='row block'></div>");
     $(".container").append(newDivClassRow);
-    var hourCol = $(`<div class="col-2 time-block">${hours.amHours[i]}</div>`);
+    var hourCol = $(`<div class="col-2 time-block">${hours.amHours[i]}:00</div>`);
 
     var textCol = $(
-      `<input class="col description" placeholder='Enter your events here' data-store=${conversion.amHour[i]}></></input>`
+      `<textarea class="col description" placeholder='Enter your events here' data-store=${conversion.amHour[i]}></></textarea>`
     );
     var buttonCol = $(
       `<button class="saveBtn styled" data-store=${hours.amHours[i]}><i class="fas fa-save"></i></button>`
@@ -84,10 +87,11 @@ $(document).ready(function () {
   for (var i = 0; i < hours.pmHours.length; i++) {
     var newDivClassRow = $("<div class='row block'></div>");
     $(".container").append(newDivClassRow);
-    var hourCol = $(`<div class='col-2 time-block'>${hours.pmHours[i]}</div>`);
+
+    var hourCol = $(`<div class='col-2 time-block'>${hours.pmHours[i]}:00</div>`);
 
     var textCol = $(
-      `<input class="col textCol description" placeholder='Enter your events here' data-store=${conversion.pmHour[i]}></input>`
+      `<textarea class="col description" placeholder='Enter your events here' data-store=${conversion.pmHour[i]}></textarea>`
     );
     var buttonCol = $(
       `<button class="saveBtn styled" data-store=${hours.pmHours[i]}><i class="fas fa-save"></i></button>`
@@ -103,46 +107,28 @@ $(document).ready(function () {
     localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
   });
 
-// time function
-function time() {
-
-  // variable "currentHour" holds current hour.
-  var currentHour = moment().hours();
-
-  // function for each class block to past, present, or future
-  $(".row").each(function () {
-
-      // variable "hour" holds data-store hour from class block and pareInt is used to change it from a string to an integer.
-      var hour = parseInt($(this).attr("hours.hour"));
-
-      // if in the past hour's
-      if (hour < currentHour) {
-          // adds grey to blocks
-          $(this).addClass("past");
-      }
-
-      //else if in the present hour
-      else if (hour === currentHour) {
-          // removes grey to blocks
-          $(this).removeClass("past");
-          // adds red to blocks
-          $(this).addClass("present");
-      }
-
-      // else if in the future's
-      else {
-          // removes grey to blocks
-          $(this).removeClass("past");
-          // removes red to blocks
-          $(this).removeClass("present");
-          // adds green to blocks
-          $(this).addClass("future");
-      }
-
-  });
-
+  function colorChange() {
+    $('textarea').each(function () {
+        var currentHour = parseInt(moment().hours());
+        var textData = $('textarea').data(hourColors);
+        if (textData < currentHour) {
+            $('textarea').removeClass("present");
+            $('textarea').removeClass("future");
+            $('textarea').addClass("past");
+        }
+        else if (textData === currentHour) {
+            $('textarea').removeClass("past");
+            $('textarea').removeClass("future");
+            $('textarea').addClass("present");
+        }
+        else {
+            $('textarea').removeClass("past");
+            $('textarea').removeClass("present");
+            $('textarea').addClass("future");
+        }
+        console.log(textData);
+        console.log(currentHour);
+    });
 };
-
-// call the funtion time()
-time();
+colorChange();
 });
