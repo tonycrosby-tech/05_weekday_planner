@@ -67,7 +67,7 @@ $(document).ready(function () {
       var hourCol = $(`<div class="col-2 time-block">${hours.amHours[i]}:00</div>`);
   
       var textCol = $(
-        `<textarea class="col description" placeholder='Enter your events here' id=${hours.amHours[i]}></textarea>`
+        `<textarea class="col description" placeholder='Enter your events here' id=${hours.amHours[i]} data-store=${hours.amHours[i]}></textarea>`
       );
       var buttonCol = $(
         `<button class="saveBtn styled" id=${hours.amHours[i]}><i class="fas fa-save"></i></button>`
@@ -82,10 +82,10 @@ $(document).ready(function () {
       var hourCol = $(`<div class='col-2 time-block'>${hours.pmHours[i]}:00</div>`);
   
       var textCol = $(
-        `<textarea class="col description" placeholder='Enter your events here' id=${hours.pmHours[i]}></textarea>`
+        `<textarea class="col description" placeholder='Enter your events here' id=${hours.pmHours[i]} data-store=${hours.pmHours[i]}></textarea>`
       );
       var buttonCol = $(
-        `<button class="saveBtn styled" id=${hours.pmHours[i]}><i class="fas fa-save"></i></button>`
+        `<button class="saveBtn styled" id=${hours.pmHours[i]} ><i class="fas fa-save"></i></button>`
       );
       $(newDivClassRow).append(hourCol, textCol, buttonCol);
     }
@@ -138,10 +138,18 @@ colorChange();
 //   localStorage.setItem(eventId, eventText);
 //   });
 
-$('.saveBtn').on('click', function(){
-    var eventId = $(this).attr('id');
-    var eventText = $(this).siblings('.description').val();
-    localStorage.setItem(eventId, eventText);
+// $('.saveBtn').on('click', function(){
+//     var eventId = $(this).attr('id');
+//     var eventText = $(this).siblings('.description').val();
+//     localStorage.getItem(".description");
+//     localStorage.setItem(eventId, eventText);
+// });
+
+$("textarea").each(function () {
+  $(this).val(localStorage.getItem($(this).attr("data-store")))
+$("textarea").on("keyup", function (itm) {
+    localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
+});
 });
 
   
