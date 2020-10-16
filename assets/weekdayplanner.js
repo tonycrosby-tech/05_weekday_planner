@@ -39,7 +39,7 @@
 
 $(document).ready(function () {
   // inputting the correct date.
-  var today = moment().format("dddd, MMMM Do YYYY");
+  var today = moment().format("dddd MMMM Do, YYYY");
   var CURRENT_DAY = document.getElementById("currentDay");
   var info = "Work Day Scheduler";
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
   //end of loop
 
   // defining the time of days for the planner.
-  
+
   var hours = {
     amHours: [9, 10, 11],
     pmHours: [12, 13, 14, 15, 16, 17],
@@ -64,8 +64,10 @@ $(document).ready(function () {
     for (var i = 0; i < hours.amHours.length; i++) {
       var newDivClassRow = $("<div class='row block'></div>");
       $(".container").append(newDivClassRow);
-      var hourCol = $(`<div class="col-2 time-block">${hours.amHours[i]}:00</div>`);
-  
+      var hourCol = $(
+        `<div class="col-2 time-block">${hours.amHours[i]}:00</div>`
+      );
+
       var textCol = $(
         `<textarea class="col description" placeholder='Enter your events here' id=${hours.amHours[i]} data-store=${hours.amHours[i]}></textarea>`
       );
@@ -78,9 +80,11 @@ $(document).ready(function () {
     for (var i = 0; i < hours.pmHours.length; i++) {
       var newDivClassRow = $("<div class='row block'></div>");
       $(".container").append(newDivClassRow);
-  
-      var hourCol = $(`<div class='col-2 time-block'>${hours.pmHours[i]}:00</div>`);
-  
+
+      var hourCol = $(
+        `<div class='col-2 time-block'>${hours.pmHours[i]}:00</div>`
+      );
+
       var textCol = $(
         `<textarea class="col description" placeholder='Enter your events here' id=${hours.pmHours[i]} data-store=${hours.pmHours[i]}></textarea>`
       );
@@ -89,51 +93,49 @@ $(document).ready(function () {
       );
       $(newDivClassRow).append(hourCol, textCol, buttonCol);
     }
-};
-dayAndTime();
-  
+  }
+  dayAndTime();
+
   function colorChange() {
-    $('textarea').each(function () {
-        var currentHour = moment().format("HH");
-        // var textData = $('textarea').data("#");
-        $("#" + currentHour).addClass("present");
-        for (let i = 9; i < 18; i++) {
-          if (currentHour < i) {
-            $("#" + i).addClass("future");
-          } else if (currentHour > i) {
-            $("#" + i).addClass("past");
-          }
+    $("textarea").each(function () {
+      var currentHour = moment().format("HH");
+      // var textData = $('textarea').data("#");
+      $("#" + currentHour).addClass("present");
+      for (let i = 9; i < 18; i++) {
+        if (currentHour < i) {
+          $("#" + i).addClass("future");
+        } else if (currentHour > i) {
+          $("#" + i).addClass("past");
         }
-        // console.log(textData);
-        // console.log(currentHour);
+      }
+      // console.log(textData);
+      // console.log(currentHour);
     });
-};
-colorChange();
+  }
+  colorChange();
 
-var saveBtn = $('.saveBtn');
-saveBtn.on('click', function(){
-  var eventId = $(this).attr('id');
-  var eventText = $(this).siblings('.description').val();
-  localStorage.setItem(eventId, eventText);
+  var saveBtn = $(".saveBtn");
+  saveBtn.on("click", function () {
+    var eventId = $(this).attr("id");
+    var eventText = $(this).siblings(".description").val();
+    localStorage.setItem(eventId, eventText);
   });
-for ( var i = 9; i < 18; i++) {
-  var data = localStorage.getItem(i);
-  $("#" + i).text(data);
-}
+  for (var i = 9; i < 18; i++) {
+    var data = localStorage.getItem(i);
+    $("#" + i).text(data);
+  }
 
-// $('.saveBtn').on('click', function(){
-//     var eventId = $(this).attr('id');
-//     var eventText = $(this).siblings('.description').val();
-//     localStorage.getItem(".description");
-//     localStorage.setItem(eventId, eventText);
-// });
+  // $('.saveBtn').on('click', function(){
+  //     var eventId = $(this).attr('id');
+  //     var eventText = $(this).siblings('.description').val();
+  //     localStorage.getItem(".description");
+  //     localStorage.setItem(eventId, eventText);
+  // });
 
-// $("textarea").each(function () {
-//   $(this).val(localStorage.getItem($(this).attr("data-store")))
-// $("textarea").on("keyup", function (itm) {
-//     localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
-// });
-// });
-
-  
+  // $("textarea").each(function () {
+  //   $(this).val(localStorage.getItem($(this).attr("data-store")))
+  // $("textarea").on("keyup", function (itm) {
+  //     localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
+  // });
+  // });
 });
