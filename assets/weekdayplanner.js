@@ -110,33 +110,16 @@ dayAndTime();
 };
 colorChange();
 
-
-// $('#save').on('click', function(){
-
-//   $('input[type="text"]').each(function(){    
-//       var id = $(this).attr('id');
-//       var value = $(this).val();
-//      localStorage.setItem(id, value);
-
-//   });   
-// });
-
-// $('#load').on('click', function(){
-//   $('input[type="text"]').each(function(){    
-//       var id = $(this).attr('id');
-//       var value = localStorage.getItem(id);
-
-//       $(this).val(value);
-
-//   }); 
-// });
-
-// var saveBtn = $('.saveBtn');
-// saveBtn.on('click', function(){
-//   var eventId = $(this).attr('id');
-//   var eventText = $(this).siblings('.description').val();
-//   localStorage.setItem(eventId, eventText);
-//   });
+var saveBtn = $('.saveBtn');
+saveBtn.on('click', function(){
+  var eventId = $(this).attr('id');
+  var eventText = $(this).siblings('.description').val();
+  localStorage.setItem(eventId, eventText);
+  });
+for ( var i = 9; i < 18; i++) {
+  var data = localStorage.getItem(i);
+  $("#" + i).text(data);
+}
 
 // $('.saveBtn').on('click', function(){
 //     var eventId = $(this).attr('id');
@@ -145,12 +128,12 @@ colorChange();
 //     localStorage.setItem(eventId, eventText);
 // });
 
-$("textarea").each(function () {
-  $(this).val(localStorage.getItem($(this).attr("data-store")))
-$("textarea").on("keyup", function (itm) {
-    localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
-});
-});
+// $("textarea").each(function () {
+//   $(this).val(localStorage.getItem($(this).attr("data-store")))
+// $("textarea").on("keyup", function (itm) {
+//     localStorage.setItem($(this).attr("data-store"), $(this).val().trim());
+// });
+// });
 
   
 });
