@@ -6,7 +6,7 @@
 
 ### > To get to the Repository <a target="_blank" href="https://github.com/tonycrosby-tech/05_weekday_planner"> Click this link </a>
 
-### > To get to the Website <a target="_blank" href="http://tonycrosby.net/05_weekday_planner/"> Click this link </a>
+### > To get to the Website <a target="_blank" href="https://tonycrosby-tech.github.io/05_weekday_planner/"> Click this link </a>
 
 #
 
